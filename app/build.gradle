@@ -20,9 +20,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug {}
+        debug {
+            debuggable true
+        }
 
         release {
+            debuggable true
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -91,6 +94,8 @@ dependencies {
     androidTestImplementation "androidx.test:core-ktx:$core_ktx_test_version"
 
     //News implementations to picpay test:
-    implementation project(":provider")
     implementation project(":service")
+    implementation project(":provider")
+    testImplementation "org.robolectric:robolectric:4.3"
+    testImplementation("io.mockk:mockk:1.4.1")
 }

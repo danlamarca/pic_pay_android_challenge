@@ -6,7 +6,7 @@ import com.picpay.desafio.provider.model.User
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
-class SortTest {
+class SortTest {//testa a reordenacao dos contatos da agenda
 
     private fun sortTest(correctNamesOrder: List<String>) {
         val list = mutableListOf<User>()

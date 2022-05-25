@@ -20,31 +20,27 @@ class Cache(private val context: Context) {
         cacheTime = (1000 * 60 * 5).toLong()// every 5 minutes resets the cash
     }
 
-    enum class CacheType {
-        CACHE_ELEMENT
-    }
-
-    fun getContacts(type: CacheElement.Companion.cacheType): ResponseUser? {
-       try {
-           if (needUpdate(
-                   CacheElement.Companion.cacheType.CONTACTSCACHE,
-                   type.name
-               )
-           ) {
-               return null
-           }
-           return Reservoir.get(type.name, ResponseUser::class.java)
-       }catch (e: Exception){
-           Log.e("I/O Error", "Error while saving CacheElement " + e.message)
-           return null
-       }
-    }
-
-    fun saveContacts(type: CacheElement.Companion.cacheType, users: ResponseUser) {
+    fun getSavedFilesInDisc(type: CacheElement.Companion.cacheType): ResponseUser? {
         try {
-            Reservoir.put(type.name, users)
+            if (needUpdate(
+                    CacheElement.Companion.cacheType.CONTACTSCACHE, //implementado aqui a verificacao para os dados do tipo contato
+                    type.name
+                )
+            ) {
+                return null
+            }
+            return Reservoir.get(type.name, ResponseUser::class.java)//retornando dados casheados em disco
+        } catch (e: Exception) {
+            Log.e("I/O Error", "Error while saving CacheElement " + e.message)
+            return null
+        }
+    }
+
+    fun saveFilesInDisc(type: CacheElement.Companion.cacheType, users: ResponseUser) {
+        try {
+            Reservoir.put(type.name, users)//salvando em disco o cash de usuarios para ser usado a cada 5min
             saveCacheTime(
-                CacheElement.Companion.cacheType.CONTACTSCACHE,
+                CacheElement.Companion.cacheType.CONTACTSCACHE, //implementado aqui a verificacao para os dados do tipo contato
                 System.currentTimeMillis()
             )
         } catch (e: Exception) {

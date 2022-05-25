@@ -19,7 +19,7 @@ class PicPayContactsPresenter(val view: PicPayContactsContract.View) :
     override fun showContacts() {
         //cash verification
         val cash =
-            Cache(view.getContext()).getContacts(CacheElement.Companion.cacheType.CONTACTSCACHE)
+            Cache(view.getContext()).getSavedFilesInDisc(CacheElement.Companion.cacheType.CONTACTSCACHE)
 
         if (cash == null) {
             executeCallback()
@@ -37,7 +37,7 @@ class PicPayContactsPresenter(val view: PicPayContactsContract.View) :
 
                 override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                     val listUsers: List<User> = response.body()!!
-                    Cache(view.getContext()).saveContacts(
+                    Cache(view.getContext()).saveFilesInDisc(
                         CacheElement.Companion.cacheType.CONTACTSCACHE,
                         ResponseUser(listUsers)
                     )

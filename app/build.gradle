@@ -92,4 +92,5 @@ dependencies {
 
     //News implementations to picpay test:
     implementation project(":provider")
+    implementation project(":service")
 }

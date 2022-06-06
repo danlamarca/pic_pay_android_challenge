@@ -1,9 +1,9 @@
-package com.picpay.desafio.android.adapter.holder
+package com.picpay.desafio.android.presentation.adapter.holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.picpay.desafio.android.R
-import com.picpay.desafio.provider.model.User
+import com.picpay.desafio.android.data.model.User
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_user.view.*

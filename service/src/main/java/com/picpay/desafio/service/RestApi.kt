@@ -14,6 +14,7 @@ object RestApi {
     private val retrofit: Retrofit
     fun getRetrofit() = retrofit
 
+    //colocar no gradle:
     private const val url = "https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/"
 
     init {

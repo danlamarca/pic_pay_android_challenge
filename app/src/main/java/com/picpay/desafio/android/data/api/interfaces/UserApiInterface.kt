@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface UserApiInterface {//implemented by datasource
     @GET("users")
-    fun getUsers(): Call<List<UserDataModel>>
+    fun getUsersDataSource(): Call<List<UserDataModel>>
 }

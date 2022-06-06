@@ -7,8 +7,8 @@ import retrofit2.Call
 
 class UserDataSource():
     UserApiInterface {
-    override fun getUsers(): Call<List<UserDataModel>> {
+    override fun getUsersDataSource(): Call<List<UserDataModel>> {
         val api = Api.getRetrofitInstance().create(UserApiInterface::class.java)
-        return api.getUsers()
+        return api.getUsersDataSource()
     }
 }

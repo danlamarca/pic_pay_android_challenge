@@ -30,7 +30,7 @@ class PicPayContactsPresenter(val view: PicPayContactsContract.View) :
     }
 
     private fun executeCallback() {
-        UserDataSource().getUsers()
+        UserDataSource().getUsersDataSource()
             .enqueue(object : Callback<List<UserDataModel>> {
                 override fun onFailure(call: Call<List<UserDataModel>>, t: Throwable) {
                     view.showError()

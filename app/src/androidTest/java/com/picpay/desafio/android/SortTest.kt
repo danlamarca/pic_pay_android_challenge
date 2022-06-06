@@ -1,6 +1,6 @@
 package com.picpay.desafio.android
 
-import com.picpay.desafio.android.data.model.UserModel
+import com.picpay.desafio.android.data.model.UserDataModel
 
 import junit.framework.Assert.assertEquals
 import org.junit.Test
@@ -8,10 +8,10 @@ import org.junit.Test
 class SortTest {//testa a reordenacao dos contatos da agenda
 
     private fun sortTest(correctNamesOrder: List<String>) {
-        val list = mutableListOf<UserModel>()
+        val list = mutableListOf<UserDataModel>()
         for (element in correctNamesOrder) {
             list.add(
-                UserModel("", "", 0, "")
+                UserDataModel("", "", 0, "")
                     .apply { this.username = element })
         }
 

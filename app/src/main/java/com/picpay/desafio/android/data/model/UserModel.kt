@@ -6,7 +6,7 @@ import com.picpay.desafio.provider.utils.Extensions.unaccent
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class User(
+data class UserModel(
     @SerializedName("img") var img: String,
     @SerializedName("name") var name: String,
     @SerializedName("id") var id: Int,

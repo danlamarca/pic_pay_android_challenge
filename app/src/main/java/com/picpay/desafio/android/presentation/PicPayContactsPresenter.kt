@@ -1,52 +1,39 @@
 package com.picpay.desafio.android.presentation
 
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.picpay.desafio.android.data.api.RetrofitBuilder
 import com.picpay.desafio.android.data.datasource.UserDataSource
-import com.picpay.desafio.provider.model.CacheElement
-import com.picpay.desafio.provider.model.ResponseUser
-import com.picpay.desafio.android.data.model.UserDataModel
-import com.picpay.desafio.provider.model.ProviderUser
-import com.picpay.desafio.service.singleton.Cache
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.picpay.desafio.android.domain.viewmodel.UserViewModel
+import com.picpay.desafio.android.domain.viewmodel.UserViewModelFactory
+import com.picpay.desafio.service.Utils.Status
 
-class PicPayContactsPresenter(val view: PicPayContactsContract.View) :
+class PicPayContactsPresenter(private val activityInstance: PicPayContactsActivity) :
+
     PicPayContactsContract.Presenter {
 
-    init {
-        view.inProcess()
-    }
+    private val userViewModel: UserViewModel = ViewModelProvider(activityInstance,
+        UserViewModelFactory(UserDataSource(RetrofitBuilder.userApiService))).get(UserViewModel::class.java)
 
     override fun showContacts() {
-        //cash verification
-        val cash =
-            Cache(view.getContext()).getSavedFilesInDisc(CacheElement.Companion.cacheType.CONTACTSCACHE)
-
-        if (cash == null) {
-            executeCallback()
-        } else {
-            cash?.providerUsers?.let { view.showSuccess(it) }
-        }
+        executeCallback()
     }
 
     private fun executeCallback() {
-        UserDataSource().getUsersDataSource()
-            .enqueue(object : Callback<List<UserDataModel>> {
-                override fun onFailure(call: Call<List<UserDataModel>>, t: Throwable) {
-                    view.showError()
+        userViewModel.getUsers().observe(activityInstance, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                       resource.data?.let { users -> activityInstance.showSuccess(users) }
+                    }
+                    Status.ERROR -> {
+                        activityInstance.showError()
+                    }
+                    Status.LOADING -> {
+                        activityInstance.inProcess()
+                    }
                 }
-
-                override fun onResponse(call: Call<List<UserDataModel>>, response: Response<List<UserDataModel>>) {
-                    val listUserDataModels: List<UserDataModel> = response.body()!!
-
-                    Cache(view.getContext()).saveFilesInDisc(
-                        CacheElement.Companion.cacheType.CONTACTSCACHE,
-                        ResponseUser(
-                            listUserDataModels as List<ProviderUser>
-                        )
-                    )
-                    view.showSuccess(listUserDataModels)
-                }
-            })
+            }
+        })
     }
 }

@@ -1,8 +1,7 @@
 package com.picpay.desafio.android.domain.repository
 
-import com.picpay.desafio.android.data.model.UserDataModel
-import retrofit2.Call
+import com.picpay.desafio.android.data.model.User
 
 interface UserDomainInterface {
-    fun showUsers(): List<UserDataModel>
+    fun showUsers(): List<User>
 }

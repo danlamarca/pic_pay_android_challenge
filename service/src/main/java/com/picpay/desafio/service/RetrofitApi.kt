@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-object RestApi {
+object RetrofitApi {
 
     private val retrofit: Retrofit
     fun getRetrofit() = retrofit

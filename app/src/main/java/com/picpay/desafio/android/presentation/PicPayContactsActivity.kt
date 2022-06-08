@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.presentation.adapter.UserListAdapter
-import com.picpay.desafio.android.data.model.UserDataModel
-import com.picpay.desafio.provider.model.ProviderUser
+import com.picpay.desafio.android.data.model.User
 
 open class PicPayContactsActivity : AppCompatActivity(R.layout.activity_main),
     PicPayContactsContract.View {
@@ -47,15 +46,16 @@ open class PicPayContactsActivity : AppCompatActivity(R.layout.activity_main),
             .show()
     }
 
-    override fun showSuccess(users: List<ProviderUser>) {
+    override fun showSuccess(users: List<User>) {
         progressBar.visibility = View.GONE
         if (users.isNullOrEmpty())
             return
 
-        adapter.users = users as List<UserDataModel>//users.sortedBy { it.comparator() }
+        adapter.users = users as List<User>//users.sortedBy { it.comparator() }
     }
 
     override fun getContext(): Context {
         return this.applicationContext
     }
+
 }

@@ -2,7 +2,7 @@ package com.picpay.desafio.android.presentation
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.picpay.desafio.android.data.api.RetrofitBuilder
+import com.picpay.desafio.android.data.api.ApiBuilder
 import com.picpay.desafio.android.data.datasource.UserDataSource
 import com.picpay.desafio.android.domain.viewmodel.UserViewModel
 import com.picpay.desafio.android.domain.viewmodel.UserViewModelFactory
@@ -13,7 +13,7 @@ class PicPayContactsPresenter(private val activityInstance: PicPayContactsActivi
     PicPayContactsContract.Presenter {
 
     private val userViewModel: UserViewModel = ViewModelProvider(activityInstance,
-        UserViewModelFactory(UserDataSource(RetrofitBuilder.userApiService))).get(UserViewModel::class.java)
+        UserViewModelFactory(UserDataSource(ApiBuilder.userApiService))).get(UserViewModel::class.java)
 
     override fun showContacts() {
         executeCallback()
